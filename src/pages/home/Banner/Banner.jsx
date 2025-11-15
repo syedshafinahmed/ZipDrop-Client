@@ -13,6 +13,7 @@ const Banner = () => {
       showThumbs={false}
       showStatus={false}
       showArrows={false}
+      className='py-20'
     >
       <div>
         <img src={bannerImg1} />

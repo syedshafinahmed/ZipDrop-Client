@@ -49,7 +49,7 @@ const Services = () => {
   ];
 
   return (
-    <div className='py-10'>
+    <div className='py-20'>
       <div className='bg-secondary p-20 rounded-xl'>
         <h1 className='text-4xl text-white text-center font-bold'>Our Services</h1>
         <p className='text-[#DADADA] text-center pt-3 pb-10'>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>

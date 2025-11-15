@@ -29,17 +29,21 @@ const How = () => {
   ]
 
   return (
-    <div className='flex justify-center items-center gap-5 py-10 flex-wrap md:flex-nowrap px-5 md:px-0'>
-      {
-        datas.map(data => (
-          <div key={data.id} className='text-secondary hover:text-primary p-8 w-80 h-72 bg-primary hover:bg-secondary rounded-xl transition-transform duration-300 hover:scale-102'>
-            {data.image}
-            <h1 className='font-bold text-xl py-3'>{data.title}</h1>
-            <p className='text-[#606060] hover:text-white text-sm text-justify'>{data.description}</p>
-          </div>
-        ))
-      }
+    <div className='py-20'>
+      <p className='text-secondary text-3xl pb-5 font-bold'>How it Works?</p>
+      <div className='flex justify-center items-center gap-5 flex-wrap md:flex-nowrap px-5 md:px-0'>
+        {
+          datas.map(data => (
+            <div key={data.id} className='text-secondary hover:text-primary p-8 w-80 h-72 bg-primary hover:bg-secondary rounded-xl transition-transform duration-300 hover:scale-102'>
+              {data.image}
+              <h1 className='font-bold text-xl py-3'>{data.title}</h1>
+              <p className='text-[#606060] hover:text-white text-sm text-justify'>{data.description}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
+
   );
 };
 
