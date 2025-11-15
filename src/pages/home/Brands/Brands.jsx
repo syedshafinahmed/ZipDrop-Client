@@ -12,7 +12,7 @@ import { Autoplay } from 'swiper/modules';
 const Brands = () => {
   return (
     <div className='py-20'>
-      <p className='text-center font-bold text-secondary text-2xl mb-20'>We've helped thousands of sales teams</p>
+      <p className='text-center font-bold text-secondary text-2xl mb-20'>We've helped thousands of sales teams</p>
       <Swiper
         slidesPerView={4}
         centeredSlides={true}
