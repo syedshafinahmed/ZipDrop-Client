@@ -12,7 +12,7 @@ const Navbar = () => {
       <li className='mr-5'><NavLink to='/rider'>Be a Rider</NavLink></li>
     </>
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm rounded-xl py-3">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -24,7 +24,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <a className="ml-5 text-xl">
           <Logo></Logo>
         </a>
       </div>
