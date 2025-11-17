@@ -5,14 +5,16 @@ import { NavLink, useLocation, useNavigate } from 'react-router';
 import Social from './Social/Social';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { BeatLoader } from 'react-spinners';
 
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { register, formState: { errors }, handleSubmit } = useForm();
-  const { registerUser, updateUserProfile } = useAuth();
+  const { registerUser, updateUserProfile, loading, setLoading } = useAuth();
 
   const handleRegistration = (data) => {
+    setLoading(true);
     const profileImg = data.photo[0];
     registerUser(data.email, data.password)
       .then(result => {
@@ -35,6 +37,7 @@ const Register = () => {
             }
             updateUserProfile(userProfile)
               .then(() => {
+                setLoading(false);
                 Swal.fire({
                   title: `Welcome, ${data.name}!`,
                   text: "Your account has been created successfully.",
@@ -44,6 +47,7 @@ const Register = () => {
                 navigate(location?.state || '/');
               })
               .catch(error => {
+                setLoading(false);
                 Swal.fire({
                   title: "Profile Update Failed",
                   text: error.message,
@@ -53,9 +57,19 @@ const Register = () => {
           })
       })
       .catch(error => {
+        setLoading(false);
         console.log(error);
       })
   }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <BeatLoader color="#CAEB66" />
+      </div>
+    );
+  }
+
   return (
     <div className="card bg-base-200 w-full max-w-sm shrink-0 shadow-2xl">
       <form onSubmit={handleSubmit(handleRegistration)} className="card-body">

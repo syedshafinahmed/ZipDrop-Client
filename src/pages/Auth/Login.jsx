@@ -4,14 +4,16 @@ import useAuth from '../../hooks/useAuth';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import Social from './Social/Social';
 import Swal from 'sweetalert2';
+import { BeatLoader } from 'react-spinners';
 
 const Login = () => {
-  const { signInUser } = useAuth();
+  const { signInUser, loading, setLoading } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (data) => {
+    setLoading(true);
     signInUser(data.email, data.password)
       .then(result => {
         const name = result.user.displayName;
@@ -22,6 +24,7 @@ const Login = () => {
           confirmButtonColor: "#CAEB66"
         });
         navigate(location?.state || '/');
+        setLoading(false);
       })
       .catch(error => {
         Swal.fire({
@@ -30,9 +33,18 @@ const Login = () => {
           icon: "error",
           confirmButtonColor: "#d33"
         });
-        console.log(error)
+        setLoading(false);
       })
   }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <BeatLoader color="#CAEB66" />
+      </div>
+    );
+  }
+
   return (
     <div className="card bg-base-200 w-full max-w-sm shrink-0 shadow-2xl">
       <form onSubmit={handleSubmit(handleLogin)} className="card-body">

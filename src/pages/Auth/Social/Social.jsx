@@ -2,14 +2,18 @@ import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import { BeatLoader } from 'react-spinners';
 
 const Social = () => {
-  const { signInGoogle } = useAuth();
+  const { signInGoogle, loading, setLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+
   const handleSignIn = () => {
+    setLoading(true);
     signInGoogle()
       .then(result => {
+        setLoading(false);
         const user = result.user;
         const name = user.displayName || "User";
 
@@ -23,6 +27,7 @@ const Social = () => {
         navigate(location?.state || '/');
       })
       .catch(error => {
+        setLoading(false);
         Swal.fire({
           title: "Login Failed",
           text: error.message,
@@ -31,6 +36,15 @@ const Social = () => {
         });
       })
   }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <BeatLoader color="#CAEB66" />
+      </div>
+    );
+  }
+
   return (
     <div>
       <button onClick={handleSignIn} className="btn bg-base-200 w-full border-primary text-black mt-5">

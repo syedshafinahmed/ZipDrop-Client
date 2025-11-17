@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   if (loading) {
     return <div className="flex justify-center items-center min-h-screen">
-      <BeatLoader color="#03373D" />
+      <BeatLoader color="#CAEB66" />
     </div>
   }
   if (!user) {
