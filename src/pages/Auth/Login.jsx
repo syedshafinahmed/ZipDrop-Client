@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import { NavLink } from 'react-router';
 
 const Login = () => {
   const { signInUser } = useAuth();
@@ -33,7 +34,8 @@ const Login = () => {
           <div><a className="link link-hover">Forgot password?</a></div>
 
 
-          <button className="btn btn-primary text-black mt-4">Login</button>
+          <button className="btn btn-primary border-none text-black mt-4">Login</button>
+          <p className='text-center pt-2'>Don't have an account? <NavLink to='/register' className='text-secondary font-bold'>Register</NavLink></p>
         </fieldset>
       </form>
     </div>
