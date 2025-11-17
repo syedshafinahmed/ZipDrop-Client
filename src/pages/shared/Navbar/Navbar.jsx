@@ -1,8 +1,19 @@
 import React from 'react';
 import Logo from '../../../components/logo/Logo';
 import { NavLink } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  const handleLogout = () => {
+    logOut()
+    .then(result => {
+
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
   const links =
     <>
       <li className='mr-5'><NavLink to='/'>Services</NavLink></li>
@@ -33,11 +44,19 @@ const Navbar = () => {
           {links}
         </ul>
       </div>
-      <div className="navbar-end flex gap-5">
-        <NavLink to='/login' className='w-20 border-none btn text-xs btn-primary text-black'>Login</NavLink>
-        <NavLink to='/register' className='w-20 border-none btn text-xs btn-primary text-black'>Register</NavLink>
-      </div>
-    </div>
+      <div className="navbar-end">
+        {user ?
+          <div className='flex gap-5 items-center'>
+            <img src={user.photoURL || "https://via.placeholder.com/150"} referrerPolicy="no-referrer" alt="User" className='border-2 border-primary rounded-full w-11' />
+            <button onClick={handleLogout} className='w-20 border-none btn text-xs btn-primary text-black'>Logout</button>
+          </div>
+          :
+          <div className='flex gap-5'>
+            <NavLink to='/login' className='w-20 border-none btn text-xs btn-primary text-black'>Login</NavLink>
+            <NavLink to='/register' className='w-20 border-none btn text-xs btn-primary text-black'>Register</NavLink>
+          </div>}
+      </div >
+    </div >
   );
 };
 
