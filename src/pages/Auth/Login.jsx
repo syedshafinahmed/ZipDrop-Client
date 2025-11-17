@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import { NavLink } from 'react-router';
+import Social from './Social/Social';
 
 const Login = () => {
   const { signInUser } = useAuth();
@@ -33,7 +34,7 @@ const Login = () => {
 
           <div><a className="link link-hover">Forgot password?</a></div>
 
-
+          <Social></Social>
           <button className="btn btn-primary border-none text-black mt-4">Login</button>
           <p className='text-center pt-2'>Don't have an account? <NavLink to='/register' className='text-secondary font-bold'>Register</NavLink></p>
         </fieldset>

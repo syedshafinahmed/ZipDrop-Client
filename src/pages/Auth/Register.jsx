@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import { NavLink } from 'react-router';
+import Social from './Social/Social';
 
 const Register = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
@@ -34,7 +35,7 @@ const Register = () => {
           {errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>}
           {errors.password?.type === 'minLength' && <p className='text-red-500'>Password must be atleast 6 characters long.</p>}
           {errors.password?.type === 'pattern' && <p className='text-red-500'>Password must contain atleast one Uppercase, atleast one Lowercase, atleast one digit and atleast one special character.</p>}
-
+          <Social></Social>
           <button className="btn btn-primary border-none text-black mt-4">Register</button>
           <p className='text-center pt-2'>Already have an account? <NavLink to='/login' className='text-secondary font-bold'>Login</NavLink></p>
         </fieldset>
