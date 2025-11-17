@@ -35,9 +35,9 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="ml-5 text-xl">
+        <div className="ml-5 text-xl">
           <Logo></Logo>
-        </a>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -47,7 +47,7 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ?
           <div className='flex gap-5 items-center'>
-            <img src={user.photoURL || "https://via.placeholder.com/150"} referrerPolicy="no-referrer" alt="User" className='border-2 border-primary rounded-full w-11' />
+            <img src={user.photoURL || "https://via.placeholder.com/150"} referrerPolicy="no-referrer" alt="User" className='border-2 border-primary rounded-full w-11 h-11' />
             <button onClick={handleLogout} className='w-20 border-none btn text-xs btn-primary text-black'>Logout</button>
           </div>
           :
