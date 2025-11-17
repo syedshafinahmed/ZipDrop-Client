@@ -1,10 +1,11 @@
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 
 const Social = () => {
   const { signInGoogle } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
   const handleSignIn = () => {
     signInGoogle()
@@ -19,7 +20,7 @@ const Social = () => {
           confirmButtonColor: "#CAEB66"
         });
 
-        navigate("/");
+        navigate(location?.state || '/');
       })
       .catch(error => {
         Swal.fire({

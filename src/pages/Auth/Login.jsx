@@ -1,13 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import Social from './Social/Social';
 import Swal from 'sweetalert2';
 
 const Login = () => {
   const { signInUser } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (data) => {
@@ -20,7 +21,7 @@ const Login = () => {
           icon: "success",
           confirmButtonColor: "#CAEB66"
         });
-        navigate("/"); 
+        navigate(location?.state || '/');
       })
       .catch(error => {
         Swal.fire({
@@ -52,7 +53,7 @@ const Login = () => {
 
           <Social></Social>
           <button className="btn btn-primary border-none text-black mt-4">Login</button>
-          <p className='text-center pt-2'>Don't have an account? <NavLink to='/register' className='text-secondary font-bold'>Register</NavLink></p>
+          <p className='text-center pt-2'>Don't have an account? <NavLink state={location.state} to='/register' className='text-secondary font-bold'>Register</NavLink></p>
         </fieldset>
       </form>
     </div>

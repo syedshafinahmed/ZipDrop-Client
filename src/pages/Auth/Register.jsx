@@ -1,11 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import Social from './Social/Social';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { register, formState: { errors }, handleSubmit } = useForm();
   const { registerUser, updateUserProfile } = useAuth();
 
@@ -32,10 +35,20 @@ const Register = () => {
             }
             updateUserProfile(userProfile)
               .then(() => {
-                console.log('user profile updated')
+                Swal.fire({
+                  title: `Welcome, ${data.name}!`,
+                  text: "Your account has been created successfully.",
+                  icon: "success",
+                  confirmButtonColor: "#CAEB66"
+                });
+                navigate(location?.state || '/');
               })
               .catch(error => {
-                console.log(error);
+                Swal.fire({
+                  title: "Profile Update Failed",
+                  text: error.message,
+                  icon: "error"
+                });
               })
           })
       })
@@ -76,7 +89,7 @@ const Register = () => {
           {errors.password?.type === 'pattern' && <p className='text-red-500'>Password must contain atleast one Uppercase, atleast one Lowercase, atleast one digit and atleast one special character.</p>}
           <Social></Social>
           <button className="btn btn-primary border-none text-black mt-4">Register</button>
-          <p className='text-center pt-2'>Already have an account? <NavLink to='/login' className='text-secondary font-bold'>Login</NavLink></p>
+          <p className='text-center pt-2'>Already have an account? <NavLink state={location.state} to='/login' className='text-secondary font-bold'>Login</NavLink></p>
         </fieldset>
       </form>
     </div>
