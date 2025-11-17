@@ -1,10 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import useAuth from '../../hooks/useAuth';
 
 const Register = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
-  const handleRegistration = () => {
+  const { registerUser } = useAuth();
 
+  const handleRegistration = (data) => {
+    registerUser(data.email, data.password)
+      .then(result => {
+        console.log(result.user);
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
   return (
     <div>
@@ -26,7 +35,7 @@ const Register = () => {
           {errors.password?.type === 'pattern' && <p className='text-red-500'>Password must contain atleast one Uppercase, atleast one Lowercase, atleast one digit and atleast one special character.</p>}
 
           <div><a className="link link-hover">Forgot password?</a></div>
-          <button className="btn btn-neutral mt-4">Login</button>
+          <button className="btn btn-neutral mt-4">Register</button>
         </fieldset>
       </form>
     </div>

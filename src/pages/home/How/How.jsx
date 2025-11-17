@@ -39,7 +39,7 @@ const How = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 
                       px-5 md:px-0 justify-items-center 
-                      [grid-auto-rows:1fr]">
+                      [auto-rows:1fr]">
         {datas.map((data) => (
           <div
             key={data.id}
