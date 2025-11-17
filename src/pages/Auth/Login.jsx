@@ -1,18 +1,34 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import Social from './Social/Social';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const { signInUser } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
+
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
       .then(result => {
-        console.log(result.user)
+        const name = result.user.displayName;
+        Swal.fire({
+          title: "Login Successful!",
+          text: `Welcome Back, ${name}!`,
+          icon: "success",
+          confirmButtonColor: "#CAEB66"
+        });
+        navigate("/"); 
       })
       .catch(error => {
+        Swal.fire({
+          title: "Login Failed",
+          text: error.message,
+          icon: "error",
+          confirmButtonColor: "#d33"
+        });
         console.log(error)
       })
   }
