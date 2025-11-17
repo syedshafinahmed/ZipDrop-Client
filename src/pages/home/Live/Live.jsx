@@ -4,7 +4,7 @@ import safe from '../../../assets/safe-delivery.png'
 import call from '../../../assets/Call center-bro.png'
 const Live = () => {
   return (
-    <div className='py-20'>
+    <div className='py-20 border-t border-b border-secondary border-dashed'>
       <div className='px-5 pb-10 md:px-5'>
         <div className='flex bg-white p-10 rounded-xl items-center'>
           <img src={live} alt="" />
@@ -25,7 +25,7 @@ const Live = () => {
           </div>
         </div>
       </div>
-      <div className='px-5 pb-10 md:px-5'>
+      <div className='px-5 md:px-5'>
         <div className='flex bg-white p-10 rounded-xl items-center'>
           <img src={call} alt="" />
           <div className="h-40 border-l-2 border-dashed border-secondary mx-10"></div>

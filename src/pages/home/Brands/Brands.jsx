@@ -11,7 +11,7 @@ import img7 from '../../../assets/brands/start_people.png'
 import { Autoplay } from 'swiper/modules';
 const Brands = () => {
   return (
-    <div className='py-20'>
+    <div className='py-30'>
       <p className='text-center font-bold text-secondary text-2xl mb-20'>We've helped thousands of sales teams</p>
       <Swiper
         slidesPerView={4}

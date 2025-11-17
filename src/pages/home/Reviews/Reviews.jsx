@@ -7,7 +7,7 @@ const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
 
   return (
-    <div className='py-20'>
+    <div className='py-30'>
       <div className='flex flex-col justify-center items-center'>
         <img src={review} alt="" />
         <h1 className='text-3xl text-center font-bold text-secondary pt-10 pb-5'>What our customers are sayings</h1>
