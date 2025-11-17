@@ -16,12 +16,12 @@ const Register = () => {
       })
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleRegistration)}>
+    <div className="card bg-base-200 w-full max-w-sm shrink-0 shadow-2xl">
+      <form onSubmit={handleSubmit(handleRegistration)} className="card-body">
         <fieldset className="fieldset">
-
+          <h1 className='text-2xl text-center font-bold py-3'>Create an Account</h1>
           <label className="label">Email</label>
-          <input type="email" {...register('email', { required: true })} className="input" placeholder="Email" />
+          <input type="email" {...register('email', { required: true })} className="input w-full outline-none hover:border-primary hover:not-focus:border-primary focus:border-primary" placeholder="Email" />
           {errors.email?.type === 'required' && <p className='text-red-500'>Email is required</p>}
 
           <label className="label">Password</label>
@@ -29,13 +29,12 @@ const Register = () => {
             required: true,
             minLength: 6,
             pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{}|;:'",.<>/?]).+$/
-          })} className="input" placeholder="Password" />
+          })} className="input w-full outline-none hover:border-primary hover:not-focus:border-primary focus:border-primary" placeholder="Password" />
           {errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>}
           {errors.password?.type === 'minLength' && <p className='text-red-500'>Password must be atleast 6 characters long.</p>}
           {errors.password?.type === 'pattern' && <p className='text-red-500'>Password must contain atleast one Uppercase, atleast one Lowercase, atleast one digit and atleast one special character.</p>}
 
-          <div><a className="link link-hover">Forgot password?</a></div>
-          <button className="btn btn-neutral mt-4">Register</button>
+          <button className="btn btn-primary text-black mt-4">Register</button>
         </fieldset>
       </form>
     </div>
