@@ -1,8 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useLoaderData } from 'react-router';
 
 const SendParcel = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const serviceCenters = useLoaderData();
+
+  const regionsDuplicate = serviceCenters.map(c => c.region);
+  const regions = [...new Set(regionsDuplicate)];
+
+  const senderRegion = watch('senderRegion');
+
+  const districtsByRegion = (region) => {
+    const regionDistricts = serviceCenters.filter(c => c.region === region);
+    const districts = regionDistricts.map(d => d.district);
+    return districts;
+  }
+
   const handleSendParcel = (data) => {
 
   }
@@ -40,23 +55,46 @@ const SendParcel = () => {
           {/* sender */}
           <div>
             <h4 className="text-2xl text-secondary font-semibold mb-5">Sender Details</h4>
+            {/* name */}
             <fieldset className="fieldset mb-3">
               <label className="label">Sender Name</label>
               <input type="text" {...register('senderName')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Name" />
             </fieldset>
+            {/* email */}
+            <fieldset className="fieldset mb-3">
+              <label className="label">Sender Email</label>
+              <input type="email" {...register('senderEmail')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Email" />
+            </fieldset>
+            {/* region */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Sender Regions</legend>
+              <select {...register('senderRegion')} defaultValue="Pick a Region" className="select outline-none border-gray-300 w-full focus:border-primary">
+                <option disabled={true}>Pick a Region</option>
+                {
+                  regions.map((r, i) => <option key={i} value={r}>{r}</option>)
+                }
+              </select>
+            </fieldset>
+            {/* district */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Sender Districts</legend>
+              <select {...register('senderDistrict')} defaultValue="Pick a District" className="select outline-none border-gray-300 w-full focus:border-primary">
+                <option disabled={true}>Pick a District</option>
+                {
+                  districtsByRegion(senderRegion).map((r, i) => <option key={i} value={r}>{r}</option>)
+                }
+              </select>
+            </fieldset>
+            {/* address */}
             <fieldset className="fieldset mb-3">
               <label className="label">Sender Address</label>
               <input type="text" {...register('senderAddress')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Address" />
             </fieldset>
+            {/* phone */}
             <fieldset className="fieldset mb-3">
               <label className="label">Sender Phone No</label>
-              <input type="text" {...register('senderPhone')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Phone No" />
+              <input type="tel" {...register('senderPhone')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Phone No" />
             </fieldset>
-            <fieldset className="fieldset mb-3">
-              <label className="label">Sender District</label>
-              <input type="text" {...register('senderDistrict')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender District" />
-            </fieldset>
-
           </div>
           {/* receiver */}
           <div>
@@ -66,12 +104,16 @@ const SendParcel = () => {
               <input type="text" {...register('receiverName')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Name" />
             </fieldset>
             <fieldset className="fieldset mb-3">
+              <label className="label">Receiver Email</label>
+              <input type="email" {...register('receiverEmail')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Email" />
+            </fieldset>
+            <fieldset className="fieldset mb-3">
               <label className="label">Receiver Address</label>
               <input type="text" {...register('receiverAddress')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Address" />
             </fieldset>
             <fieldset className="fieldset mb-3">
               <label className="label">Receiver Phone No</label>
-              <input type="text" {...register('receiverPhone')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Phone No" />
+              <input type="tel" {...register('receiverPhone')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Phone No" />
             </fieldset>
             <fieldset className="fieldset mb-3">
               <label className="label">Receiver District</label>
