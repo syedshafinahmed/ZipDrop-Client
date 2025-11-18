@@ -1,16 +1,17 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 
 const SendParcel = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, control, formState: { errors } } = useForm();
 
   const serviceCenters = useLoaderData();
 
   const regionsDuplicate = serviceCenters.map(c => c.region);
   const regions = [...new Set(regionsDuplicate)];
 
-  const senderRegion = watch('senderRegion');
+  const senderRegion = useWatch({ control, name: 'senderRegion' });
+  const receiverRegion = useWatch({ control, name: 'receiverRegion' });
 
   const districtsByRegion = (region) => {
     const regionDistricts = serviceCenters.filter(c => c.region === region);
@@ -19,7 +20,9 @@ const SendParcel = () => {
   }
 
   const handleSendParcel = (data) => {
-
+    console.log(data);
+    const sameDistrict = data.senderDistrict === data.receiverDistrict;
+    console.log(sameDistrict);
   }
   return (
     <div className='bg-base-200 p-7 rounded-xl mt-10'>
@@ -99,25 +102,45 @@ const SendParcel = () => {
           {/* receiver */}
           <div>
             <h4 className="text-2xl text-secondary font-semibold mb-5">Receiver Details</h4>
+            {/* name  */}
             <fieldset className="fieldset mb-3">
               <label className="label">Receiver Name</label>
               <input type="text" {...register('receiverName')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Name" />
             </fieldset>
+            {/* email */}
             <fieldset className="fieldset mb-3">
               <label className="label">Receiver Email</label>
               <input type="email" {...register('receiverEmail')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Email" />
             </fieldset>
+            {/* region */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Receiver Regions</legend>
+              <select {...register('receiverRegion')} defaultValue="Pick a Region" className="select outline-none border-gray-300 w-full focus:border-primary">
+                <option disabled={true}>Pick a Region</option>
+                {
+                  regions.map((r, i) => <option key={i} value={r}>{r}</option>)
+                }
+              </select>
+            </fieldset>
+            {/* district */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Receiver Districts</legend>
+              <select {...register('receiverDistrict')} defaultValue="Pick a District" className="select outline-none border-gray-300 w-full focus:border-primary">
+                <option disabled={true}>Pick a District</option>
+                {
+                  districtsByRegion(receiverRegion).map((d, i) => <option key={i} value={d}>{d}</option>)
+                }
+              </select>
+            </fieldset>
+            {/* address */}
             <fieldset className="fieldset mb-3">
               <label className="label">Receiver Address</label>
               <input type="text" {...register('receiverAddress')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Address" />
             </fieldset>
+            {/* phone */}
             <fieldset className="fieldset mb-3">
               <label className="label">Receiver Phone No</label>
               <input type="tel" {...register('receiverPhone')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver Phone No" />
-            </fieldset>
-            <fieldset className="fieldset mb-3">
-              <label className="label">Receiver District</label>
-              <input type="text" {...register('ReceiverDistrict')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Receiver District" />
             </fieldset>
           </div>
         </div>
