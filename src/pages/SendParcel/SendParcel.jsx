@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
+import Swal from 'sweetalert2';
 
 const SendParcel = () => {
   const { register, handleSubmit, control, formState: { errors } } = useForm();
@@ -20,9 +21,45 @@ const SendParcel = () => {
   }
 
   const handleSendParcel = (data) => {
-    console.log(data);
-    const sameDistrict = data.senderDistrict === data.receiverDistrict;
-    console.log(sameDistrict);
+    const isDocument = data.parcelType === 'document';
+    const parcelWeight = parseFloat(data.parcelWeight);
+    const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+    let cost = 0;
+    if (isDocument) {
+      cost = isSameDistrict ? 60 : 80;
+    }
+    else {
+      if (parcelWeight < 3) {
+        cost = isSameDistrict ? 110 : 150;
+      }
+      else {
+        const minCharge = isSameDistrict ? 110 : 150;
+        const extraWeight = parcelWeight - 3;
+        const extraCharge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40;
+        cost = minCharge + extraCharge;
+      }
+    }
+    console.log('cost', cost);
+    Swal.fire({
+      title: "Please confirm the cost",
+      text: `You will be charged ${cost} Taka`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, confirm it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        
+        
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success"
+        // });
+      }
+    });
   }
   return (
     <div className='bg-base-200 p-7 rounded-xl mt-10'>
