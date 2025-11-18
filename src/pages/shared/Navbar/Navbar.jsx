@@ -19,7 +19,7 @@ const Navbar = () => {
       <li className='mr-5'><NavLink to='/'>Services</NavLink></li>
       <li className='mr-5'><NavLink to='/coverage'>Coverage</NavLink></li>
       <li className='mr-5'><NavLink to='/about'>About Us</NavLink></li>
-      <li className='mr-5'><NavLink to='/pricing'>Pricing</NavLink></li>
+      <li className='mr-5'><NavLink to='/send-parcel'>Send Parcel</NavLink></li>
       <li className='mr-5'><NavLink to='/rider'>Be a Rider</NavLink></li>
     </>
   return (
