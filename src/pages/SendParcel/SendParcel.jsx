@@ -51,6 +51,7 @@ const SendParcel = () => {
       }
     }
     console.log('cost', cost);
+    data.cost = cost;
     Swal.fire({
       title: "Please confirm the cost",
       text: `You will be charged ${cost} Taka`,
