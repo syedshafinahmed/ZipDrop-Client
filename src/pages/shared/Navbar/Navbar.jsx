@@ -7,12 +7,12 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const handleLogout = () => {
     logOut()
-    .then(result => {
+      .then(result => {
 
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
   const links =
     <>
@@ -21,6 +21,12 @@ const Navbar = () => {
       <li className='mr-5'><NavLink to='/about'>About Us</NavLink></li>
       <li className='mr-5'><NavLink to='/send-parcel'>Send Parcel</NavLink></li>
       <li className='mr-5'><NavLink to='/rider'>Be a Rider</NavLink></li>
+      {
+        user &&
+        <>
+          <li className='mr-5'><NavLink to='/dashboard/my-parcels'>Dashboard</NavLink></li>
+        </>
+      }
     </>
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-xl py-3">
