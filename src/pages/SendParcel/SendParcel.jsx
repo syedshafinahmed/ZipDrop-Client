@@ -2,11 +2,22 @@ import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
 
 const SendParcel = () => {
-  const { register, handleSubmit, control, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    // formState: { errors }
+  } = useForm();
+
+  const { user } = useAuth();
 
   const serviceCenters = useLoaderData();
+
+  const axiosSecure = useAxiosSecure();
 
   const regionsDuplicate = serviceCenters.map(c => c.region);
   const regions = [...new Set(regionsDuplicate)];
@@ -50,9 +61,13 @@ const SendParcel = () => {
       confirmButtonText: "Yes, confirm it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        
-        
-        
+
+        // save the parcel info to the database
+        axiosSecure.post('/parcels', data)
+          .then(res => {
+            console.log('after saving parcel', res.data);
+          })
+
         // Swal.fire({
         //   title: "Deleted!",
         //   text: "Your file has been deleted.",
@@ -98,12 +113,12 @@ const SendParcel = () => {
             {/* name */}
             <fieldset className="fieldset mb-3">
               <label className="label">Sender Name</label>
-              <input type="text" {...register('senderName')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Name" />
+              <input type="text" {...register('senderName')} defaultValue={user?.displayName} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Name" />
             </fieldset>
             {/* email */}
             <fieldset className="fieldset mb-3">
               <label className="label">Sender Email</label>
-              <input type="email" {...register('senderEmail')} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Email" />
+              <input type="email" {...register('senderEmail')} defaultValue={user?.email} className="input w-full outline-none focus:border-primary hover:border-primary" placeholder="Sender Email" />
             </fieldset>
             {/* region */}
             <fieldset className="fieldset">
