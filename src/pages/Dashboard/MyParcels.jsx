@@ -5,6 +5,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const MyParcels = () => {
 
@@ -58,6 +59,7 @@ const MyParcels = () => {
             <th className="border border-gray-300 text-center">Name</th>
             <th className="border border-gray-300 text-center">Cost</th>
             <th className="border border-gray-300 text-center">Payment Status</th>
+            <th className="border border-gray-300 text-center">Delivery Status</th>
             <th className="border border-gray-300 text-center">Actions</th>
           </tr>
         </thead>
@@ -68,7 +70,13 @@ const MyParcels = () => {
               <th className="border border-gray-300 text-center">{index + 1}</th>
               <td className="border border-gray-300 text-center">{parcel.parcelName}</td>
               <td className="border border-gray-300 text-center">{parcel.cost}</td>
-              <td className="border border-gray-300 text-center">Blue</td>
+              <td className="border border-gray-300 text-center">
+                {
+                  parcel.paymentStatus === 'paid' ? <span className='badge badge-success'>Paid</span> :
+                    <Link to={`/dashboard/payment/${parcel._id}`} className='btn btn-warning text-black btn-sm'><button>Pay</button></Link>
+                }
+              </td>
+              <td className="border border-gray-300 text-center">{parcel.delivery}</td>
               <td className="border border-gray-300 text-center">
                 <button className="btn btn-square hover:bg-primary">
                   <FaEdit />
