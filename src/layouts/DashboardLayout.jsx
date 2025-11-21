@@ -1,7 +1,7 @@
 import React from 'react';
-import { CiDeliveryTruck } from 'react-icons/ci';
+import { MdLocalShipping } from "react-icons/md";
 import { Link, NavLink, Outlet } from 'react-router';
-
+import Logo from '../components/logo/Logo'
 const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -25,6 +25,7 @@ const DashboardLayout = () => {
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
             {/* List item */}
+            <li><Logo></Logo></li>
             <li>
               <Link to='/' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
                 {/* Home icon */}
@@ -35,7 +36,8 @@ const DashboardLayout = () => {
 
             {/* dashboard links */}
             <li>
-              <NavLink to='/dashboard/my-parcels' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings"><CiDeliveryTruck /><span className="is-drawer-close:hidden">My Parcels</span></NavLink>
+              <NavLink to='/dashboard/my-parcels' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings"><MdLocalShipping />
+                <span className="is-drawer-close:hidden">My Parcels</span></NavLink>
             </li>
 
             {/* List item */}
