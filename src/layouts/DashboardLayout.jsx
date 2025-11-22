@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet } from 'react-router';
 import Logo from '../components/logo/Logo'
 import logo from '../assets/logo.png'
 import { FaShippingFast } from 'react-icons/fa';
+import { BsCreditCard2FrontFill } from "react-icons/bs";
+import { IoSend } from 'react-icons/io5';
 const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open bg-gray-200">
@@ -45,8 +47,16 @@ const DashboardLayout = () => {
 
             {/* dashboard links */}
             <li>
-              <NavLink to='/dashboard/my-parcels' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings"><FaShippingFast />
+              <NavLink to='/send-parcel' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Send Parcel"><IoSend />
+                <span className="is-drawer-close:hidden">Send Parcel</span></NavLink>
+            </li>
+            <li>
+              <NavLink to='/dashboard/my-parcels' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Parcels"><FaShippingFast />
                 <span className="is-drawer-close:hidden">My Parcels</span></NavLink>
+            </li>
+            <li>
+              <NavLink to='/dashboard/payment-history' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History"><BsCreditCard2FrontFill />
+                <span className="is-drawer-close:hidden">Payment History</span></NavLink>
             </li>
 
             {/* List item */}
