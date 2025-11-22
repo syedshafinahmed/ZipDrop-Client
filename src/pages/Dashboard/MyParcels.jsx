@@ -59,7 +59,7 @@ const MyParcels = () => {
 
     }
     const res = await axiosSecure.post('/payment-checkout-session', paymentInfo)
-    window.location.href = res.data.url;
+    window.location.assign(res.data.url);
   }
 
   return (
