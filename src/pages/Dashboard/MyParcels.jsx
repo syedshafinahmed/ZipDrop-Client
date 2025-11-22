@@ -63,7 +63,7 @@ const MyParcels = () => {
   }
 
   return (
-    <div className="w-full mt-20 flex justify-center">
+    <div className="w-full py-20 flex justify-center">
       <table className="table table-zebra w-auto border border-gray-300 border-collapse">
         <thead>
           <tr>
