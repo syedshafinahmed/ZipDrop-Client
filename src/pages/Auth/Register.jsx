@@ -6,12 +6,14 @@ import Social from './Social/Social';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { BeatLoader } from 'react-spinners';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { register, formState: { errors }, handleSubmit } = useForm();
   const { registerUser, updateUserProfile, loading, setLoading } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   const handleRegistration = (data) => {
     setLoading(true);
@@ -28,12 +30,23 @@ const Register = () => {
         const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
         axios.post(image_API_URL, formData)
           .then(res => {
-            console.log('after image upload', res.data);
-
+            const photoURL = res.data.data.url;
+            // create user in the databse
+            const userInfo = {
+              email: data.email,
+              displayName: data.name,
+              photoURL: data.photoURL
+            }
+            axiosSecure.post('/users', userInfo)
+              .then(res => {
+                if (res.data.insertedId) {
+                  console.log("user created in the database");
+                }
+              })
             // update user profile to firebase
             const userProfile = {
               displayName: data.name,
-              photoURL: res.data.data.url
+              photoURL: photoURL,
             }
             updateUserProfile(userProfile)
               .then(() => {

@@ -24,20 +24,22 @@ const PaymentHistory = () => {
           <table className="table table-zebra mt-10">
             <thead>
               <tr>
-                <th>Sl</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Transaction ID</th>
+                <th className="border border-gray-300 text-center">Sl</th>
+                <th className="border border-gray-300 text-center">Name</th>
+                <th className="border border-gray-300 text-center">Amount</th>
+                <th className="border border-gray-300 text-center">Payment Time</th>
+                <th className="border border-gray-300 text-center">Transaction ID</th>
               </tr>
             </thead>
 
             <tbody>
               {payments.map((payment, index) => (
                 <tr key={payment._id}>
-                  <th>{index + 1}</th>
-                  <td>{payment.parcelName}</td>
-                  <td>${payment.amount}</td>
-                  <td>{payment.transactionId}</td>
+                  <th className="border border-gray-300 text-center">{index + 1}</th>
+                  <td className="border border-gray-300 text-center">{payment.parcelName}</td>
+                  <td className="border border-gray-300 text-center">${payment.amount}</td>
+                  <td className="border border-gray-300 text-center">{payment.paidAt}</td>
+                  <td className="border border-gray-300 text-center">{payment.transactionId}</td>
                 </tr>
               ))}
             </tbody>

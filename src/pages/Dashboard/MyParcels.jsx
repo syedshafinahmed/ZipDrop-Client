@@ -63,48 +63,51 @@ const MyParcels = () => {
   }
 
   return (
-    <div className="w-full py-20 flex justify-center">
-      <table className="table table-zebra w-auto border border-gray-300 border-collapse">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 text-center">sl</th>
-            <th className="border border-gray-300 text-center">Name</th>
-            <th className="border border-gray-300 text-center">Cost</th>
-            <th className="border border-gray-300 text-center">Payment Status</th>
-            <th className="border border-gray-300 text-center">Delivery Status</th>
-            <th className="border border-gray-300 text-center">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {parcels.map((parcel, index) => (
-            <tr key={parcel._id}>
-              <th className="border border-gray-300 text-center">{index + 1}</th>
-              <td className="border border-gray-300 text-center">{parcel.parcelName}</td>
-              <td className="border border-gray-300 text-center">{parcel.cost}</td>
-              <td className="border border-gray-300 text-center">
-                {
-                  parcel.paymentStatus === 'paid' ? <span className='badge badge-success'>Paid</span> :
-                    // <Link to={`/dashboard/payment/${parcel._id}`} className='btn btn-primary text-black btn-sm'><button>Pay</button></Link>
-                    <button onClick={() => handlePayment(parcel)} className='btn btn-primary text-black btn-sm'>Pay</button>
-                }
-              </td>
-              <td className="border border-gray-300 text-center">{parcel.delivery}</td>
-              <td className="border border-gray-300 text-center">
-                <button className="btn btn-square hover:bg-primary">
-                  <FaEdit />
-                </button>
-                <button className="btn btn-square mx-2 hover:bg-primary">
-                  <FaMagnifyingGlass />
-                </button>
-                <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-square hover:bg-primary">
-                  <FaTrash />
-                </button>
-              </td>
+    <div>
+      <h2 className='text-5xl text-center py-2'>My Parcels: {parcels.length}</h2>
+      <div className="w-full py-4 flex justify-center">
+        <table className="table table-zebra w-auto border border-gray-300 border-collapse">
+          <thead>
+            <tr>
+              <th className="border border-gray-300 text-center">Sl</th>
+              <th className="border border-gray-300 text-center">Name</th>
+              <th className="border border-gray-300 text-center">Cost</th>
+              <th className="border border-gray-300 text-center">Payment Status</th>
+              <th className="border border-gray-300 text-center">Delivery Status</th>
+              <th className="border border-gray-300 text-center">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {parcels.map((parcel, index) => (
+              <tr key={parcel._id}>
+                <th className="border border-gray-300 text-center">{index + 1}</th>
+                <td className="border border-gray-300 text-center">{parcel.parcelName}</td>
+                <td className="border border-gray-300 text-center">{parcel.cost}</td>
+                <td className="border border-gray-300 text-center">
+                  {
+                    parcel.paymentStatus === 'paid' ? <span className='badge badge-success'>Paid</span> :
+                      // <Link to={`/dashboard/payment/${parcel._id}`} className='btn btn-primary text-black btn-sm'><button>Pay</button></Link>
+                      <button onClick={() => handlePayment(parcel)} className='btn btn-primary text-black btn-sm'>Pay</button>
+                  }
+                </td>
+                <td className="border border-gray-300 text-center">{parcel.delivery}</td>
+                <td className="border border-gray-300 text-center">
+                  <button className="btn btn-square hover:bg-primary">
+                    <FaEdit />
+                  </button>
+                  <button className="btn btn-square mx-2 hover:bg-primary">
+                    <FaMagnifyingGlass />
+                  </button>
+                  <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-square hover:bg-primary">
+                    <FaTrash />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
 
 
