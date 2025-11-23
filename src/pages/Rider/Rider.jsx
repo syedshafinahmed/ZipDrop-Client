@@ -49,7 +49,7 @@ const Rider = () => {
     <div className='py-10'>
       <h2 className='text-4xl px-5 md:px-0 font-bold text-secondary'>Be a Rider</h2>
       <p className='py-2 text-gray-400 px-5 md:px-0 text-justify'>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
-      <div className='flex flex-col-reverse md:flex-row justify-between items-center gap-10'>
+      <div className='flex flex-col-reverse md:flex-row justify-between items-center mt-5 gap-10'>
         <div className='w-full px-5'>
           <form onSubmit={handleSubmit(handleRiderApplication)}>
             <p className='text-2xl text-secondary pb-5'>Tell us about yourself</p>

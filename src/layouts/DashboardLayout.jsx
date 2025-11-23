@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
 import Logo from '../components/logo/Logo'
 import logo from '../assets/logo.png'
-import { FaShippingFast } from 'react-icons/fa';
+import { FaMotorcycle, FaShippingFast } from 'react-icons/fa';
 import { BsCreditCard2FrontFill } from "react-icons/bs";
 import { IoSend } from 'react-icons/io5';
 const DashboardLayout = () => {
@@ -57,6 +57,10 @@ const DashboardLayout = () => {
             <li>
               <NavLink to='/dashboard/payment-history' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History"><BsCreditCard2FrontFill />
                 <span className="is-drawer-close:hidden">Payment History</span></NavLink>
+            </li>
+            <li>
+              <NavLink to='/dashboard/approve-riders' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders"><FaMotorcycle />
+                <span className="is-drawer-close:hidden">Approve Riders</span></NavLink>
             </li>
 
             {/* List item */}
