@@ -3,11 +3,13 @@ import useAuth from '../../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import { BeatLoader } from 'react-spinners';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Social = () => {
   const { signInGoogle, loading, setLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleSignIn = () => {
     setLoading(true);
@@ -24,7 +26,17 @@ const Social = () => {
           confirmButtonColor: "#CAEB66"
         });
 
-        navigate(location?.state || '/');
+
+        const userInfo = {
+          email: result.user.email,
+          displayName: result.user.name,
+          photoURL: result.user.photoURL
+        }
+        axiosSecure.post('/users', userInfo)
+          .then(res => {
+            console.log('user data has been stored', res.data);
+            navigate(location?.state || '/');
+          })
       })
       .catch(error => {
         setLoading(false);

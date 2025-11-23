@@ -20,8 +20,8 @@ const PaymentHistory = () => {
       <h2 className='text-5xl text-center py-2'>Payment History: {payments.length}</h2>
 
       <div className="flex justify-center">
-        <div className="overflow-x-auto w-full max-w-4xl">
-          <table className="table table-zebra mt-10">
+        <div className="overflow-x-auto w-full flex justify-center max-w-4xl py-4">
+          <table className="table table-zebra w-auto border border-gray-300 border-collapse">
             <thead>
               <tr>
                 <th className="border border-gray-300 text-center">Sl</th>
