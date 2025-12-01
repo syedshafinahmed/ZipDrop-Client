@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Assignparcels = () => {
+  const [selectedParcel, setSelectedParcel] = useState(null);
   const riderModalRef = useRef();
   const axiosSecure = useAxiosSecure();
-  const openAssignRiderModal = parcel => {
-    riderModalRef.current.showModal();
-  }
+
+
   const { data: parcels = [] } = useQuery({
     queryKey: ['parcels', 'pending-pickup'],
     queryFn: async () => {
@@ -16,9 +16,38 @@ const Assignparcels = () => {
 
     }
   })
+
+
+  const { data: riders = [] } = useQuery({
+    queryKey: ['riders', selectedParcel?.senderDistrict, 'available'],
+    enabled: !!selectedParcel,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`riders?status=approved&district=${selectedParcel?.senderDistrict}&workStatus=available`)
+      return res.data;
+    }
+  })
+
+
+
+  const openAssignRiderModal = (parcel) => {
+    setSelectedParcel(parcel);
+    console.log(parcel.senderDistrict);
+    riderModalRef.current.showModal();
+  }
+
+  const handleAssignRider = (rider) => {
+    const riderAssignInfo = {
+      riderId: rider._id,
+      riderEmail: rider.email,
+      riderName: rider.name,
+      parcelId: setSelectedParcel._id
+    }
+    axiosSecure.patch(``, riderAssignInfo)
+  }
+
   return (
     <div>
-      <h2 className='text-3xl md:text-5xl text-center py-2'>Assign parcels: {parcels.length}</h2>
+      <h2 className='text-3xl md:text-5xl text-center py-2'>Assign Riders: {parcels.length}</h2>
       <div className="flex justify-center">
         <div className="overflow-x-auto w-full flex justify-center max-w-4xl py-4">
           <table className="table table-zebra w-auto border border-gray-300 border-collapse">
@@ -56,9 +85,42 @@ const Assignparcels = () => {
         </div>
       </div>
       <dialog ref={riderModalRef} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click the button below to close</p>
+        <div className="modal-box w-full max-w-2xl">
+          <h3 className="font-bold text-lg">Riders: {riders.length}</h3>
+          <div className='flex justify-center'>
+            <div className="overflow-x-auto w-full flex justify-center max-w-4xl px-20 mt-10">
+              <table className="table border-collapse text-xs">
+                {/* head */}
+                <thead>
+                  <tr>
+                    <th className='text-center border border-gray-300'>
+                      Sl
+                    </th>
+                    <th className='text-center border border-gray-300'>Name</th>
+                    <th className='text-center border border-gray-300'>Email</th>
+                    <th className='text-center border border-gray-300'>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {riders.map((rider, index) => <tr key={index}>
+                    <td className='text-center border border-gray-300'>
+                      {index + 1}
+                    </td>
+                    <td className='text-center border border-gray-300'>
+                      {rider.name}
+                    </td>
+                    <td className='text-center border border-gray-300'>
+                      {rider.email}
+                    </td>
+                    <td className='text-center border border-gray-300'>
+                      <button onClick={() => handleAssignRider(rider)} className='btn btn-xs btn-primary text-black'>Assign</button>
+                    </td>
+                  </tr>)}
+                </tbody>
+
+              </table>
+            </div>
+          </div>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
