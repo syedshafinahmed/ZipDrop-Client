@@ -101,7 +101,7 @@ const UsersManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => <tr>
+            {users.map((user, index) => <tr key={index}>
               <td className='text-center border border-gray-300'>
                 {index + 1}
               </td>
