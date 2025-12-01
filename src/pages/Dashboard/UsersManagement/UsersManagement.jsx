@@ -16,7 +16,6 @@ const UsersManagement = () => {
   })
 
   const handleMakeUser = (user) => {
-
     Swal.fire({
       title: "Are you sure?",
       text: `Make ${user.displayName || "this user"} an Admin?`,
@@ -30,7 +29,7 @@ const UsersManagement = () => {
 
         const roleInfo = { role: 'admin' };
 
-        axiosSecure.patch(`/users/${user._id}`, roleInfo)
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
           .then(res => {
             if (res.data.modifiedCount) {
               Swal.fire({
@@ -62,7 +61,7 @@ const UsersManagement = () => {
       if (result.isConfirmed) {
         const roleInfo = { role: 'user' };
 
-        axiosSecure.patch(`/users/${user._id}`, roleInfo)
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
           .then(res => {
             if (res.data.modifiedCount) {
               refetch();
