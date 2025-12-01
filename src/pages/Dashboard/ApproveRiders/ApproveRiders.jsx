@@ -49,7 +49,7 @@ const ApproveRiders = () => {
       <h2 className='text-5xl text-center py-2'>Pending Rider Approvals: {riders.length}</h2>
 
       <div className="flex justify-center">
-        <div className="overflow-x-auto w-full flex justify-center max-w-4xl py-4">
+        <div className="overflow-x-auto w-full flex justify-center max-w-6xl py-4">
           <table className="table table-zebra w-auto border border-gray-300 border-collapse">
             <thead>
               <tr>
@@ -59,7 +59,8 @@ const ApproveRiders = () => {
                 <th className="border border-gray-300 text-center">Region</th>
                 <th className="border border-gray-300 text-center">District</th>
                 <th className="border border-gray-300 text-center">Bike</th>
-                <th className="border border-gray-300 text-center">Status</th>
+                <th className="border border-gray-300 text-center">Application Status</th>
+                <th className="border border-gray-300 text-center">Work Status</th>
                 <th className="border border-gray-300 text-center">Actions</th>
               </tr>
             </thead>
@@ -79,6 +80,7 @@ const ApproveRiders = () => {
                       {rider.status}
                     </p>
                   </td>
+                  <td className='border border-gray-300 text-center'>{rider.workStatus}</td>
                   <td className="text-center flex items-center">
                     <button onClick={() => handleApproval(rider)} className="btn btn-square hover:bg-primary">
                       <SiTicktick />

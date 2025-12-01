@@ -89,64 +89,65 @@ const UsersManagement = () => {
         <h2 className='text-3xl md:text-5xl text-center py-2'>Manage Users: {users.length}</h2>
         <input onChange={(e) => setSearchText(e.target.value)} type='search' placeholder='Search Users' className='w-full md:w-1/3 rounded-md p-2 border border-gray-300 focus:outline-none focus:border-primary'></input>
       </div>
-      <div className="overflow-x-auto px-20 mt-10">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th className='text-center border border-gray-300'>
-                Sl
-              </th>
-              <th className='text-center border border-gray-300'>Name</th>
-              <th className='text-center border border-gray-300'>Email</th>
-              <th className='text-center border border-gray-300'>Role</th>
-              <th className='text-center border border-gray-300'>Admin Action</th>
-              <th className='text-center border border-gray-300'>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => <tr key={index}>
-              <td className='text-center border border-gray-300'>
-                {index + 1}
-              </td>
-              <td className='text-center border border-gray-300'>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={user.photoURL || "https://i.ibb.co.com/0R5PkKdT/premium-photo-1661520696317-d0deaddafda7.jpg"}
-                        alt="Avatar Tailwind CSS Component" />
+      <div className='flex justify-center'>
+        <div className="overflow-x-auto w-full flex justify-center max-w-4xl px-20 mt-10">
+          <table className="table border-collapse">
+            {/* head */}
+            <thead>
+              <tr>
+                <th className='text-center border border-gray-300'>
+                  Sl
+                </th>
+                <th className='text-center border border-gray-300'>Name</th>
+                <th className='text-center border border-gray-300'>Email</th>
+                <th className='text-center border border-gray-300'>Role</th>
+                <th className='text-center border border-gray-300'>Admin Action</th>
+                <th className='text-center border border-gray-300'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, index) => <tr key={index}>
+                <td className='text-center border border-gray-300'>
+                  {index + 1}
+                </td>
+                <td className='text-center border border-gray-300'>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img
+                          src={user.photoURL || "https://i.ibb.co.com/0R5PkKdT/premium-photo-1661520696317-d0deaddafda7.jpg"}
+                          alt="Avatar Tailwind CSS Component" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{user.displayName}</div>
+                      <div className="text-sm opacity-50">Bangladesh</div>
                     </div>
                   </div>
-                  <div>
-                    <div className="font-bold">{user.displayName}</div>
-                    <div className="text-sm opacity-50">Bangladesh</div>
-                  </div>
-                </div>
-              </td>
-              <td className='text-center border border-gray-300'>
-                {user.email}
-              </td>
-              <td className='text-center border border-gray-300'>
-                {user.role}
-              </td>
-              <td className='text-center border border-gray-300'>
-                {user.role === 'admin' ?
-                  <button onClick={() => handleRemoveAdmin(user)} className='btn bg-red-500'>
-                    <FiShieldOff />
-                  </button> :
-                  <button onClick={() => handleMakeUser(user)} className='btn bg-primary'>
-                    <FaUserShield />
-                  </button>}
-              </td>
-              <td className='text-center border border-gray-300'>
-                Actions
-              </td>
-            </tr>)}
+                </td>
+                <td className='text-center border border-gray-300'>
+                  {user.email}
+                </td>
+                <td className='text-center border border-gray-300'>
+                  {user.role}
+                </td>
+                <td className='text-center border border-gray-300'>
+                  {user.role === 'admin' ?
+                    <button onClick={() => handleRemoveAdmin(user)} className='btn bg-red-500'>
+                      <FiShieldOff />
+                    </button> :
+                    <button onClick={() => handleMakeUser(user)} className='btn bg-primary'>
+                      <FaUserShield />
+                    </button>}
+                </td>
+                <td className='text-center border border-gray-300'>
+                  Actions
+                </td>
+              </tr>)}
+            </tbody>
 
-          </tbody>
-
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   );
