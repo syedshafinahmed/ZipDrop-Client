@@ -73,6 +73,7 @@ const MyParcels = () => {
               <th className="border border-gray-300 text-center">Name</th>
               <th className="border border-gray-300 text-center">Cost</th>
               <th className="border border-gray-300 text-center">Payment Status</th>
+              <th className="border border-gray-300 text-center">Tracking Id</th>
               <th className="border border-gray-300 text-center">Delivery Status</th>
               <th className="border border-gray-300 text-center">Actions</th>
             </tr>
@@ -91,7 +92,8 @@ const MyParcels = () => {
                       <button onClick={() => handlePayment(parcel)} className='btn btn-primary text-black btn-sm'>Pay</button>
                   }
                 </td>
-                <td className="border border-gray-300 text-center">{parcel.delivery}</td>
+                <td className="border border-gray-300 text-center">{parcel.trackingId}</td>
+                <td className="border border-gray-300 text-center">{parcel.deliveryStatus}</td>
                 <td className="border border-gray-300 text-center">
                   <button className="btn btn-square hover:bg-primary">
                     <FaEdit />
