@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaUserShield } from "react-icons/fa6";
 import { FiShieldOff } from "react-icons/fi";
@@ -7,10 +7,11 @@ import Swal from 'sweetalert2';
 
 const UsersManagement = () => {
   const axiosSecure = useAxiosSecure();
+  const [searchText, setSearchText] = useState('');
   const { refetch, data: users = [] } = useQuery({
-    queryKey: ['users'],
+    queryKey: ['users', searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users`);
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`);
       return res.data;
     }
   })
@@ -84,7 +85,10 @@ const UsersManagement = () => {
 
   return (
     <div>
-      <h2 className='text-5xl text-center py-2'>Manage Users: {users.length}</h2>
+      <div className='flex flex-col md:flex-row items-center justify-between px-20'>
+        <h2 className='text-3xl md:text-5xl text-center py-2'>Manage Users: {users.length}</h2>
+        <input onChange={(e) => setSearchText(e.target.value)} type='search' placeholder='Search Users' className='w-full md:w-1/3 rounded-md p-2 border border-gray-300 focus:outline-none focus:border-primary'></input>
+      </div>
       <div className="overflow-x-auto px-20 mt-10">
         <table className="table">
           {/* head */}
@@ -116,7 +120,7 @@ const UsersManagement = () => {
                   </div>
                   <div>
                     <div className="font-bold">{user.displayName}</div>
-                    <div className="text-sm opacity-50">United States</div>
+                    <div className="text-sm opacity-50">Bangladesh</div>
                   </div>
                 </div>
               </td>
