@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const Assignparcels = () => {
   const [selectedParcel, setSelectedParcel] = useState(null);
@@ -8,7 +9,7 @@ const Assignparcels = () => {
   const axiosSecure = useAxiosSecure();
 
 
-  const { data: parcels = [] } = useQuery({
+  const { data: parcels = [], refetch: parcelRefetch } = useQuery({
     queryKey: ['parcels', 'pending-pickup'],
     queryFn: async () => {
       const res = await axiosSecure.get('/parcels?deliveryStatus=pending-pickup')
@@ -42,7 +43,20 @@ const Assignparcels = () => {
       riderName: rider.name,
       parcelId: setSelectedParcel._id
     }
-    axiosSecure.patch(``, riderAssignInfo)
+    axiosSecure.patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+      .then(res => {
+        if (res.data.modifiedCount) {
+          riderModalRef.current.close();
+          parcelRefetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${rider.name} has been assigned`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      })
   }
 
   return (
@@ -75,7 +89,7 @@ const Assignparcels = () => {
                   <td className="border border-gray-300 text-center">{parcel.senderDistrict}</td>
                   <td className="border border-gray-300 text-center">{parcel.receiverDistrict}</td>
                   <td className="border border-gray-300 text-center">
-                    <button onClick={() => openAssignRiderModal(parcel)} className='btn btn-primary text-xs border-none text-black'>Assign Rider</button>
+                    <button onClick={() => openAssignRiderModal(parcel)} className='btn btn-primary text-xs border-none text-black'>Find Rider</button>
                   </td>
 
                 </tr>
