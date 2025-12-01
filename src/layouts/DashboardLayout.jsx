@@ -5,7 +5,9 @@ import logo from '../assets/logo.png'
 import { FaHome, FaMotorcycle, FaShippingFast, FaUsers } from 'react-icons/fa';
 import { BsCreditCard2FrontFill } from "react-icons/bs";
 import { IoSend, IoSettingsSharp } from 'react-icons/io5';
+import useRole from '../hooks/useRole';
 const DashboardLayout = () => {
+  const { role } = useRole();
   return (
     <div className="drawer lg:drawer-open bg-gray-200">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -58,14 +60,19 @@ const DashboardLayout = () => {
               <NavLink to='/dashboard/payment-history' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History"><BsCreditCard2FrontFill size={20} />
                 <span className="is-drawer-close:hidden font-bold">Payment History</span></NavLink>
             </li>
-            <li>
-              <NavLink to='/dashboard/approve-riders' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders"><FaMotorcycle size={20} />
-                <span className="is-drawer-close:hidden font-bold">Approve Riders</span></NavLink>
-            </li>
-            <li>
-              <NavLink to='/dashboard/users-management' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management"><FaUsers size={20} />
-                <span className="is-drawer-close:hidden font-bold">Users Management</span></NavLink>
-            </li>
+            {
+              role === 'admin' &&
+              <>
+                <li>
+                  <NavLink to='/dashboard/approve-riders' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders"><FaMotorcycle size={20} />
+                    <span className="is-drawer-close:hidden font-bold">Approve Riders</span></NavLink>
+                </li>
+                <li>
+                  <NavLink to='/dashboard/users-management' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management"><FaUsers size={20} />
+                    <span className="is-drawer-close:hidden font-bold">Users Management</span></NavLink>
+                </li>
+              </>
+            }
 
             {/* List item */}
             <li>
