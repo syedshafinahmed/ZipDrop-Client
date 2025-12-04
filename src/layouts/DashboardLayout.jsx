@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
 import Logo from '../components/logo/Logo'
 import logo from '../assets/logo.png'
-import { FaHome, FaMotorcycle, FaShippingFast, FaUsers } from 'react-icons/fa';
+import { FaHome, FaMotorcycle, FaShippingFast, FaTasks, FaUsers } from 'react-icons/fa';
 import { BsCreditCard2FrontFill } from "react-icons/bs";
 import { IoSend, IoSettingsSharp } from 'react-icons/io5';
 import useRole from '../hooks/useRole';
@@ -61,6 +61,18 @@ const DashboardLayout = () => {
               <NavLink to='/dashboard/payment-history' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History"><BsCreditCard2FrontFill size={20} color="#03373D" />
                 <span className="is-drawer-close:hidden font-bold">Payment History</span></NavLink>
             </li>
+
+            {
+              role === 'rider' &&
+              <>
+                <li>
+                  <NavLink to='/dashboard/assigned-deliveries' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned Deliveries"><FaTasks size={20} color="#03373D" />
+                    <span className="is-drawer-close:hidden font-bold">Assigned Deliveries</span></NavLink>
+                </li>
+              </>
+            }
+
+            {/* admin only links */}
             {
               role === 'admin' &&
               <>
